@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const axios = require('axios').default;
+const pdf = require('html-pdf');
 
 let profileImg;
 let gitHubUserName;
