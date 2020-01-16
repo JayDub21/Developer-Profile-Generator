@@ -1,7 +1,8 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const axios = require('axios').default;
-const pdf = require('html-pdf');
+const generateHTML = require('./generateHTML');
+// const pdf = require('html-pdf');
 
 let profileImg;
 let gitHubUserName;
@@ -37,64 +38,62 @@ inquirer
             name: "color"
         },
     ])
-    .then(function (userInput) {
+    .then(async function (userInput) {
+        try {
 
-        const gitHubUser = userInput.username.split(" ").join(" ") + '.json'
 
-        fs.writeFile(
-            gitHubUser, JSON.stringify(userInput, null, '\t'), function (err) {
-                if (err) {
-                    console.log(err);
-                }
+            let gitHubData = await ghAPI(userInput.username)
+            console.log(ghURL);
 
-                console.log("File Saved!");
+            const ghstarCount = await ghStarAPI(userInput.username);
+            console.log(ghstarCount);
 
-                //==============================================
-                // Sets up URL for main GH API Call
-                //==============================================
-                const ghURL = "https://api.github.com/users/" + userInput.username;
-                console.log(ghURL);
-                //==============================================
-                // Sets up URL for starred GH API Call
-                //==============================================
-                const ghStarURL = "https://api.github.com/users/" + userInput.username + "/starred";
-                console.log(ghStarURL);
+            let htmlData = {
+                user: userInput,
+                github: gitHubData
+            }
+            console.log(gitHubData);
 
-                //==============================================
-                // Put URL in function
-                //==============================================
-                ghAPI(ghURL);
-                ghStarAPI(ghStarURL);
+        } catch (err) {
+            console.log(err);
+        }
 
-            });
     });
 
 
-function ghAPI(ghURL) {
-
-    axios.get(ghURL)
+function ghAPI(username) {
+    ghURL = `https://api.github.com/users/${username}`;
+    console.log(ghURL);
+    return axios.get(ghURL)
         .then(function (response) {
-            // console.log(response.data);
+            return Promise.resolve(response.data);
 
-
-            let profileImg = (response.data.avatar_url + ".png");
-            let gitHubUserName = (response.data.login);
-            let userCity = (response.data.location);
-            let userGitHubProfile = (response.data.html_url);
-            let userBlog = (response.data.blog);
-            let userBio = (response.data.bio);
-            let userRepositories = (response.data.public_repos);
-            let userFollowers = (response.data.followers);
-            let userFollowing = (response.data.following);
-            // let userGHStars =  Create another axios call for - ;
 
         });
 };
 
-function ghStarAPI(ghStarURL) {
-
-    axios.get(ghStarURL)
+function ghStarAPI(username) {
+    ghStarURL = `https://api.github.com/users/${username}/starred`;
+    console.log(ghStarURL);
+    return axios.get(ghStarURL)
         .then(function (responseStars) {
-            console.log(responseStars.data.length);
+            return Promise.resolve(responseStars.data.length);
         });
 };
+
+
+
+
+// const html = generateHTML.generateHTML(htmlData);
+
+
+// let profileImg = (response.data.avatar_url + ".png");
+// let gitHubUserName = (response.data.login);
+// let userCity = (response.data.location);
+// let userGitHubProfile = (response.data.html_url);
+// let userBlog = (response.data.blog);
+// let userBio = (response.data.bio);
+// let userRepositories = (response.data.public_repos);
+// let userFollowers = (response.data.followers);
+// let userFollowing = (response.data.following);
+// // let userGHStars =  Create another axios call for - ;
