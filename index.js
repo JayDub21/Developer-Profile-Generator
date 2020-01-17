@@ -1,8 +1,14 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const axios = require('axios').default;
-const generateHTML = require('./generateHTML');
+const getHTML = require('./generateHTML');
 const pdf = require('html-pdf');
+
+//↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+//                NPM Packages
+//==============================================
+// Blank variables for info pulled from GitHub
+//↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
 let profileImg;
 let gitHubUserName;
@@ -38,36 +44,34 @@ inquirer
             name: "color"
         },
     ])
-    .then(async function (userInput) {
-        try {
+    //==============================================
+    //
+    //==============================================
+    .then(function (userInput) {
 
+        const queryUrl = `https://api.github.com/users/${userInput.username}`;
+        const queryStarUrl = `https://api.github.com/users/${userInput.username}/starred`;
 
-            let gitHubData = await ghAPI(userInput.username)
-            console.log(ghURL);
+        ghquery(queryUrl).then(function (response) {
+            ghQueryStars(queryStarUrl).then(function (responseStars) {
 
-            const ghstarCount = await ghStarAPI(userInput.username);
-            console.log(ghstarCount);
+                var options = { format: 'Letter' };
+                pdf.create(getHTML(userInput, response, responseStars, profileImg, gitHubUsername, userCity, userGitHubProfile, userBlog, userBio, userRepos, userFollowers, userFollowing), options).toFile(`./${userInput.username}.pdf`, function (err, res) {
+                    if (err) return console.log(err);
+                    console.log(res);
+                });
+            })
+        })
 
-            let htmlData = {
-                user: userInput,
-                github: gitHubData
-            }
-            console.log(gitHubData);
-
-
-        } catch (err) {
-            console.log(err);
-        }
 
     });
 
 
-function ghAPI(username) {
-    ghURL = `https://api.github.com/users/${username}`;
-    console.log(ghURL);
-    return axios.get(ghURL)
+function ghquery(queryUrl) {
+    console.log(queryUrl);
+    return axios.get(queryUrl)
         .then(function (response) {
-            return Promise.resolve(response.data);
+            // console.log(respone.data);
 
             profileImg = (response.data.avatar_url + ".png");
             gitHubUsername = (response.data.login);
@@ -79,27 +83,37 @@ function ghAPI(username) {
             userFollowers = (response.data.followers);
             userFollowing = (response.data.following);
 
-
+            return response;
         });
 };
 
-function ghStarAPI(username) {
-    ghStarURL = `https://api.github.com/users/${username}/starred`;
-    console.log(ghStarURL);
-    return axios.get(ghStarURL)
+function ghQueryStars(queryStarUrl) {
+
+    return axios.get(queryStarUrl)
         .then(function (responseStars) {
-            return Promise.resolve(responseStars.data.length);
+            console.log(responseStars.data.length);
+
+            return responseStars.data.length;
         });
 };
 
 
-// HTMLtoPDF.create(generateHTML(userInput, response, responseStars, profileImg, githubUsername, userCity, userGithubProfile, userBlog, userBio, numberOfRepos, userFollowers, userFollowing), options).toFile(`./${userInput.username}.pdf`, function (err, res) {
-//     if (err) return console.log(err);
-//     console.log(res);
-// });
+
 
 
 // const html = generateHTML.generateHTML(htmlData);
 
+// let htmlData = {
+//     user: userInput,
+//     github: gitHubData
+// }
+
+
+
+// const gitHubData = ghAPI(userInput.username)
+// console.log(gitHubData);
+
+// const ghstarCount = ghStarAPI(userInput.username);
+// console.log(ghstarCount);
 
 

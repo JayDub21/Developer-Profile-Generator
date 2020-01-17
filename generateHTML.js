@@ -27,10 +27,8 @@ const colors = {
 
 
 
-module.exports = {
-    colors: colors,
-    generateHTML: (userInput, response, responseStars, profileImg, gitHubUsername, userCity, userGitHubProfile, userBlog, userBio, userRepos, userFollowers, userFollowing) => {
-        return `<!DOCTYPE html>
+function getHTML(userInput, response, responseStars, profileImg, gitHubUsername, userCity, userGitHubProfile, userBlog, userBio, userRepos, userFollowers, userFollowing) {
+    return `<!DOCTYPE html>
   <html lang="en">
      <head>
         <meta charset="UTF-8" />
@@ -57,7 +55,7 @@ module.exports = {
            height: 100%;
            }
            .wrapper {
-           background-color: ${colors[userInput.colors].wrapperBackground};
+           background-color: ${colors[userInput.color].wrapperBackground};
            padding-top: 100px;
            }
            body {
@@ -189,7 +187,7 @@ module.exports = {
             
             <div class="links-nav">
               <span class="nav-link"><a href="https://www.google.com/maps/place/${userCity}">${userCity}</a></span>
-              <span class="nav-link"><a href="${userGithubProfileURL}">Github</a></span>
+              <span class="nav-link"><a href="${userGitHubProfile}">Github</a></span>
               <span class="nav-link"><a href="${userBlog}">Blog</a></span>
             </div>
         </div>
@@ -235,5 +233,7 @@ module.exports = {
       
       </body>
       </html>`
-    }
 };
+
+
+module.exports = getHTML;
