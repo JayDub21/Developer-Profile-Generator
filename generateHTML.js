@@ -25,13 +25,11 @@ const colors = {
     }
 };
 
-// let pet = "Sam the Dog"
-// let sentence = pet + " is the best"
-// let sentence2 = `${pet} is super awesome`
+
 
 module.exports = {
     colors: colors,
-    generateHTML: function (data) {
+    generateHTML: (userInput, response, responseStars, profileImg, gitHubUsername, userCity, userGitHubProfile, userBlog, userBio, userRepos, userFollowers, userFollowing) => {
         return `<!DOCTYPE html>
   <html lang="en">
      <head>
@@ -59,7 +57,7 @@ module.exports = {
            height: 100%;
            }
            .wrapper {
-           background-color: ${colors[data.user.color].wrapperBackground};
+           background-color: ${colors[userInput.colors].wrapperBackground};
            padding-top: 100px;
            }
            body {
@@ -101,8 +99,8 @@ module.exports = {
            display: flex;
            justify-content: center;
            flex-wrap: wrap;
-           background-color: ${colors[data.user.color].headerBackground};
-           color: ${colors[data.user.color].headerColor};
+           background-color: ${colors[userInput.color].headerBackground};
+           color: ${colors[userInput.color].headerColor};
            padding: 10px;
            width: 95%;
            border-radius: 6px;
@@ -113,7 +111,7 @@ module.exports = {
            border-radius: 50%;
            object-fit: cover;
            margin-top: -75px;
-           border: 6px solid ${colors[data.user.color].photoBorderColor};
+           border: 6px solid ${colors[userInput.color].photoBorderColor};
            box-shadow: rgba(0, 0, 0, 0.3) 4px 1px 20px 4px;
            }
            .photo-header h1, .photo-header h2 {
@@ -156,8 +154,8 @@ module.exports = {
            .card {
              padding: 20px;
              border-radius: 6px;
-             background-color: ${colors[data.user.color].headerBackground};
-             color: ${colors[data.user.color].headerColor};
+             background-color: ${colors[userInput.color].headerBackground};
+             color: ${colors[userInput.color].headerColor};
              margin: 20px;
            }
            
@@ -178,6 +176,66 @@ module.exports = {
             } 
            }
         </style>
-        </head>`
+        </head>
+        <body>
+        
+        <div class="wrapper">
+         
+            <div class="photo-header"><img class="photo-header img" src="${profileImg}" alt="profile-img">
+            
+            <h1>Hi!</h1>
+            
+            <h1>My name is ${response.data.name}!</h1>
+            
+            <h2>Currently @ ${userCompany}</h2>
+            
+            <div class="links-nav">
+              <span class="nav-link"><a href="https://www.google.com/maps/place/${userCity}">${userCity}</a></span>
+              <span class="nav-link"><a href="${userGithubProfileURL}">Github</a></span>
+              <span class="nav-link"><a href="${userBlogURL}">Blog</a></span>
+            </div>
+        </div>
+      
+      <main>
+      
+      <div class="container">
+        
+      <div class="row">
+          <h2>${userBio}</h2>
+        </div>
+       
+        <div class="row">
+          <div class="col">
+            <div class="card">
+              <h3>Public Repositories</h3>
+              <h4>${numberOfRepos}</h4>
+            </div>
+            
+            <div class="card">
+              <h3>Starred Projects</h3>
+              <h4>${responseStars}</h4>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col">
+          <div class="card">
+            <h3>Followers</h3>
+            <h4>${numberofFollowers}</h4>
+          </div>
+          
+          <div class="card">
+            <h3>Following</h3>
+            <h4>${numberofUsersFollowing}</h4>
+          </div>
+        </div>
+        </div>
+      </div>
+      </main>
+      </div>
+      
+      
+      </body>
+      </html>`
     }
 };

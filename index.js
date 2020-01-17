@@ -2,7 +2,7 @@ const inquirer = require("inquirer");
 const fs = require("fs");
 const axios = require('axios').default;
 const generateHTML = require('./generateHTML');
-// const pdf = require('html-pdf');
+const pdf = require('html-pdf');
 
 let profileImg;
 let gitHubUserName;
@@ -54,6 +54,7 @@ inquirer
             }
             console.log(gitHubData);
 
+
         } catch (err) {
             console.log(err);
         }
@@ -67,6 +68,16 @@ function ghAPI(username) {
     return axios.get(ghURL)
         .then(function (response) {
             return Promise.resolve(response.data);
+
+            profileImg = (response.data.avatar_url + ".png");
+            gitHubUsername = (response.data.login);
+            userCity = (response.data.location);
+            userGitHubProfile = (response.data.html_url);
+            userBlog = (response.data.blog);
+            userBio = (response.data.bio);
+            userRepos = (response.data.public_repos);
+            userFollowers = (response.data.followers);
+            userFollowing = (response.data.following);
 
 
         });
@@ -82,18 +93,13 @@ function ghStarAPI(username) {
 };
 
 
+// HTMLtoPDF.create(generateHTML(userInput, response, responseStars, profileImg, githubUsername, userCity, userGithubProfile, userBlog, userBio, numberOfRepos, userFollowers, userFollowing), options).toFile(`./${userInput.username}.pdf`, function (err, res) {
+//     if (err) return console.log(err);
+//     console.log(res);
+// });
 
 
 // const html = generateHTML.generateHTML(htmlData);
 
 
-// let profileImg = (response.data.avatar_url + ".png");
-// let gitHubUserName = (response.data.login);
-// let userCity = (response.data.location);
-// let userGitHubProfile = (response.data.html_url);
-// let userBlog = (response.data.blog);
-// let userBio = (response.data.bio);
-// let userRepositories = (response.data.public_repos);
-// let userFollowers = (response.data.followers);
-// let userFollowing = (response.data.following);
-// // let userGHStars =  Create another axios call for - ;
+
