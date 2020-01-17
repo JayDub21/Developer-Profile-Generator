@@ -1,34 +1,39 @@
 const colors = {
-    green: {
-        wrapperBackground: "#E6E1C3",
-        headerBackground: "#C1C72C",
-        headerColor: "black",
-        photoBorderColor: "#black"
-    },
-    blue: {
-        wrapperBackground: "#5F64D3",
-        headerBackground: "#26175A",
-        headerColor: "white",
-        photoBorderColor: "#73448C"
-    },
-    pink: {
-        wrapperBackground: "#879CDF",
-        headerBackground: "#FF8374",
-        headerColor: "white",
-        photoBorderColor: "#FEE24C"
-    },
-    red: {
-        wrapperBackground: "#DE9967",
-        headerBackground: "#870603",
-        headerColor: "white",
-        photoBorderColor: "white"
-    }
+  green: {
+    wrapperBackground: "#839791",
+    headerBackground: "#012622",
+    headerColor: "#839791",
+    photoBorderColor: "grey",
+    footerBackground: "#012622"
+  },
+  blue: {
+    wrapperBackground: "#0F3842",
+    headerBackground: "#75BECF",
+    headerColor: "0F3842",
+    photoBorderColor: "grey",
+    footerBackground: "#75BECF"
+  },
+  pink: {
+    wrapperBackground: "#F2545B",
+    headerBackground: "#EFA48B",
+    headerColor: "F2545B",
+    photoBorderColor: "grey",
+    footerBackground: "#EFA48B"
+  },
+  red: {
+    wrapperBackground: "#CF152C",
+    headerBackground: "#541924",
+    headerColor: "CF152C",
+    photoBorderColor: "grey",
+    footerBackground: "#541924"
+  }
 };
 
 
 
-function getHTML(userInput, response, responseStars, profileImg, gitHubUsername, userCity, userGitHubProfile, userBlog, userBio, userRepos, userFollowers, userFollowing) {
-    return `<!DOCTYPE html>
+function getHTML(userInput, responseStars, data) {
+  console.log(data);
+  return `<!DOCTYPE html>
   <html lang="en">
      <head>
         <meta charset="UTF-8" />
@@ -56,7 +61,11 @@ function getHTML(userInput, response, responseStars, profileImg, gitHubUsername,
            }
            .wrapper {
            background-color: ${colors[userInput.color].wrapperBackground};
-           padding-top: 100px;
+           padding-top: 120px;
+           }
+           .footer{
+            background-color: ${colors[userInput.color].footerBackground};
+            height: 35px;
            }
            body {
            background-color: white;
@@ -93,7 +102,7 @@ function getHTML(userInput, response, responseStars, profileImg, gitHubUsername,
            .photo-header {
            position: relative;
            margin: 0 auto;
-           margin-bottom: -50px;
+           margin-bottom: -10px;
            display: flex;
            justify-content: center;
            flex-wrap: wrap;
@@ -145,16 +154,16 @@ function getHTML(userInput, response, responseStars, profileImg, gitHubUsername,
              display: flex;
              flex-wrap: wrap;
              justify-content: space-between;
-             margin-top: 20px;
-             margin-bottom: 20px;
+             margin-top: 10px;
+             margin-bottom: 10px;
            }
   
            .card {
-             padding: 20px;
+             padding: 10px;
              border-radius: 6px;
              background-color: ${colors[userInput.color].headerBackground};
              color: ${colors[userInput.color].headerColor};
-             margin: 20px;
+             margin: 10px;
            }
            
            .col {
@@ -179,16 +188,16 @@ function getHTML(userInput, response, responseStars, profileImg, gitHubUsername,
         
         <div class="wrapper">
          
-            <div class="photo-header"><img class="photo-header img" src="${profileImg}" alt="profile-img">
+            <div class="photo-header"><img class="photo-header img" src="${data.profileImg}" alt="profile-img">
             
-            <h1>Hi!</h1>
+            <h3>Hi!</h3>
             
-            <h1>My name is ${response.data.name}!</h1>
+            <h3>My name is ${data.fullName}!</h3>
             
             <div class="links-nav">
-              <span class="nav-link"><a href="https://www.google.com/maps/place/${userCity}">${userCity}</a></span>
-              <span class="nav-link"><a href="${userGitHubProfile}">Github</a></span>
-              <span class="nav-link"><a href="${userBlog}">Blog</a></span>
+              <span class="nav-link"><a href="https://www.google.com/maps/place/${data.userCity}">${data.userCity}</a></span>
+              <span class="nav-link"><a href="${data.userGitHubProfile}">Github</a></span>
+              <span class="nav-link"><a href="${data.userBlog}">Blog</a></span>
             </div>
         </div>
       
@@ -197,32 +206,32 @@ function getHTML(userInput, response, responseStars, profileImg, gitHubUsername,
       <div class="container">
         
       <div class="row">
-          <h2>${userBio}</h2>
+          <h5>${data.userBio}</h5>
         </div>
        
         <div class="row">
           <div class="col">
             <div class="card">
-              <h3>Public Repositories</h3>
-              <h4>${userRepos}</h4>
+              <h4>Public Repositories</h4>
+              <h5>${data.userRepos}</h5>
             </div>
             
             <div class="card">
-              <h3>Starred Projects</h3>
-              <h4>${responseStars}</h4>
+              <h4>Starred Projects</h4>
+              <h5>${data.responseStars}</h5>
             </div>
           </div>
         </div>
         
         <div class="col">
           <div class="card">
-            <h3>Followers</h3>
-            <h4>${userFollowers}</h4>
+            <h4>Followers</h4>
+            <h5>${data.userFollowers}</h5>
           </div>
           
           <div class="card">
-            <h3>Following</h3>
-            <h4>${userFollowing}</h4>
+            <h4>Following</h4>
+            <h5>${data.userFollowing}</h5>
           </div>
         </div>
         </div>
@@ -230,7 +239,7 @@ function getHTML(userInput, response, responseStars, profileImg, gitHubUsername,
       </main>
       </div>
       
-      
+      <footer></footer>
       </body>
       </html>`
 };
