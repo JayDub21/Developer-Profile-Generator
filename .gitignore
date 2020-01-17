@@ -1,0 +1,9 @@
+  
+# Ignore folder named node_modules
+node_modules
+
+# Ignore crystal's json file, html, and pdf
+
+JayDub21.pdf
+
+
