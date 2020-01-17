@@ -187,12 +187,10 @@ module.exports = {
             
             <h1>My name is ${response.data.name}!</h1>
             
-            <h2>Currently @ ${userCompany}</h2>
-            
             <div class="links-nav">
               <span class="nav-link"><a href="https://www.google.com/maps/place/${userCity}">${userCity}</a></span>
               <span class="nav-link"><a href="${userGithubProfileURL}">Github</a></span>
-              <span class="nav-link"><a href="${userBlogURL}">Blog</a></span>
+              <span class="nav-link"><a href="${userBlog}">Blog</a></span>
             </div>
         </div>
       
@@ -208,7 +206,7 @@ module.exports = {
           <div class="col">
             <div class="card">
               <h3>Public Repositories</h3>
-              <h4>${numberOfRepos}</h4>
+              <h4>${userRepos}</h4>
             </div>
             
             <div class="card">
@@ -221,12 +219,12 @@ module.exports = {
         <div class="col">
           <div class="card">
             <h3>Followers</h3>
-            <h4>${numberofFollowers}</h4>
+            <h4>${userFollowers}</h4>
           </div>
           
           <div class="card">
             <h3>Following</h3>
-            <h4>${numberofUsersFollowing}</h4>
+            <h4>${userFollowing}</h4>
           </div>
         </div>
         </div>
