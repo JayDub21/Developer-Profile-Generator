@@ -6,7 +6,8 @@
   "dependencies": {
     "axios": "^0.21.1",
     "html-pdf": "^2.2.0",
-    "inquirer": "^7.0.3"
+    "inquirer": "^7.0.3",
+    "minimist": "^1.2.5"
   },
   "devDependencies": {},
   "scripts": {
