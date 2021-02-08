@@ -24,7 +24,7 @@ node index.js
 
 
 ### Result Example:
-[ResultPDF](./JayDub21.pdf)
+![ResultPDF](./JayDub21.pdf)
 
 
 ```
