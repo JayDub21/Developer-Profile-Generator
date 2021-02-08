@@ -2,7 +2,13 @@
 
 ##### A command-line application that dynamically generates a PDF profile from a GitHub username.
 
-###### Invoke the application with the following command:
+###### From the Termianl Install the proper packages:
+
+```sh
+npm i
+```
+
+###### Then Invoke the application with the following command:
 
 ```sh
 node index.js
