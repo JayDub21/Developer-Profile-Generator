@@ -1,38 +1,36 @@
 const colors = {
   green: {
-    wrapperBackground: "#839791",
-    headerBackground: "#012622",
-    headerColor: "#839791",
-    photoBorderColor: "grey",
-    footerBackground: "#012622"
+    wrapperBackground: '#839791',
+    headerBackground: '#012622',
+    headerColor: '#839791',
+    photoBorderColor: 'grey',
+    footerBackground: '#012622',
   },
   blue: {
-    wrapperBackground: "#0F3842",
-    headerBackground: "#75BECF",
-    headerColor: "0F3842",
-    photoBorderColor: "grey",
-    footerBackground: "#75BECF"
+    wrapperBackground: '#0F3842',
+    headerBackground: '#75BECF',
+    headerColor: '0F3842',
+    photoBorderColor: 'grey',
+    footerBackground: '#75BECF',
   },
   pink: {
-    wrapperBackground: "#F2545B",
-    headerBackground: "#EFA48B",
-    headerColor: "F2545B",
-    photoBorderColor: "grey",
-    footerBackground: "#EFA48B"
+    wrapperBackground: '#F2545B',
+    headerBackground: '#EFA48B',
+    headerColor: 'F2545B',
+    photoBorderColor: 'grey',
+    footerBackground: '#EFA48B',
   },
   red: {
-    wrapperBackground: "#CF152C",
-    headerBackground: "#541924",
-    headerColor: "CF152C",
-    photoBorderColor: "grey",
-    footerBackground: "#541924"
-  }
+    wrapperBackground: '#CF152C',
+    headerBackground: '#541924',
+    headerColor: 'CF152C',
+    photoBorderColor: 'grey',
+    footerBackground: '#541924',
+  },
 };
 
-
-
 function getHTML(userInput, responseStars, data) {
-  console.log(data);
+  //   console.log(data);
   return `<!DOCTYPE html>
   <html lang="en">
      <head>
@@ -188,15 +186,21 @@ function getHTML(userInput, responseStars, data) {
         
         <div class="wrapper">
          
-            <div class="photo-header"><img class="photo-header img" src="${data.profileImg}" alt="profile-img">
+            <div class="photo-header"><img class="photo-header img" src="${
+              data.profileImg
+            }" alt="profile-img">
             
             <h3>Hi!</h3>
             
             <h3>My name is ${data.fullName}!</h3>
             
             <div class="links-nav">
-              <span class="nav-link"><a href="https://www.google.com/maps/place/${data.userCity}">${data.userCity}</a></span>
-              <span class="nav-link"><a href="${data.userGitHubProfile}">Github</a></span>
+              <span class="nav-link"><a href="https://www.google.com/maps/place/${
+                data.userCity
+              }">${data.userCity}</a></span>
+              <span class="nav-link"><a href="${
+                data.userGitHubProfile
+              }">Github</a></span>
               <span class="nav-link"><a href="${data.userBlog}">Blog</a></span>
             </div>
         </div>
@@ -218,7 +222,7 @@ function getHTML(userInput, responseStars, data) {
             
             <div class="card">
               <h4>Starred Projects</h4>
-              <h5>${data.responseStars}</h5>
+              <h5>${responseStars.stars}</h5>
             </div>
           </div>
         </div>
@@ -241,8 +245,7 @@ function getHTML(userInput, responseStars, data) {
       
       <footer></footer>
       </body>
-      </html>`
-};
-
+      </html>`;
+}
 
 module.exports = getHTML;
