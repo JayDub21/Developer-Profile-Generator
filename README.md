@@ -17,14 +17,15 @@ node index.js
 ### You will be prompted for:
 #### GitHub Username
 #### Favorite Color
-###### Use the keyboard arrows to easily select color.
+##### Use the keyboard arrows to easily select color.
+#### Your file will be saved as: Username.pdf
 
 ### Demo:
 ![Example PDF](./devProfileExample.gif)
 
 
 ### Result Example:
-![ResultPDF](./JayDub21.pdf)
+![ResultPNG](./JayDub21.png)
 
 
 ```
