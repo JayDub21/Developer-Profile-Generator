@@ -19,7 +19,12 @@ node index.js
 #### Favorite Color
 ###### Use the keyboard arrows to easily select color.
 
+### Demo:
 ![Example PDF](./devProfileExample.gif)
+
+
+### Result Example:
+[ResultPDF](./JayDub21.pdf)
 
 
 ```
